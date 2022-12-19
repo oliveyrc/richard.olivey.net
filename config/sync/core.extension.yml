@@ -1,22 +1,82 @@
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
+  admin_toolbar: 0
+  admin_toolbar_tools: 0
+  advagg: 0
+  advagg_cdn: 0
+  advagg_css_minify: 0
+  advagg_js_minify: 0
+  advagg_mod: 0
+  backup_migrate: 0
   block: 0
+  breakpoint: 0
+  captcha: 0
+  ckeditor5: 0
+  coffee: 0
+  comment: 0
+  config: 0
+  config_filter: 0
+  config_split: 0
+  contextual: 0
+  crop: 0
   dblog: 0
+  diff: 0
   dynamic_page_cache: 0
+  editor: 0
+  entity_reference_revisions: 0
+  entity_usage: 0
+  environment_indicator: 0
+  environment_indicator_ui: 0
   field: 0
+  field_group: 0
+  field_ui: 0
+  file: 0
   filter: 0
+  gin_toolbar: 0
+  image: 0
+  image_resize_filter: 0
+  image_widget_crop: 0
+  link: 0
+  linkit: 0
+  media: 0
+  media_library: 0
+  menu_link_content: 0
+  menu_ui: 0
+  metatag: 0
+  metatag_facebook: 0
+  metatag_twitter_cards: 0
   mysql: 0
   node: 0
+  options: 0
   page_cache: 0
+  paragraphs_features: 0
+  paragraphs_library: 0
+  path: 0
   path_alias: 0
+  rabbit_hole: 0
+  recaptcha_v3: 0
+  redirect: 0
+  responsive_image: 0
+  smart_trim: 0
   system: 0
   text: 0
+  token: 0
+  toolbar: 0
   update: 0
   user: 0
+  xmlsitemap_custom: 0
+  yoast_seo: 0
+  pathauto: 1
+  xmlsitemap: 1
+  views: 10
+  paragraphs: 11
+  paragraphs_ee: 15
   minimal: 1000
+  eu_cookie_compliance: 1001
 theme:
-  stark: 0
   claro: 0
   gin: 0
+  stable9: 0
+  cajun: 0
 profile: minimal

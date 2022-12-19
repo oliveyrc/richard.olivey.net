@@ -2,7 +2,12 @@ uuid: 57dad038-dae7-47d5-8a69-95556c22711b
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.rich_text
   module:
+    - eu_cookie_compliance
+    - filter
+    - media
     - system
 _core:
   default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
@@ -12,3 +17,6 @@ weight: 1
 is_admin: false
 permissions:
   - 'access content'
+  - 'display eu cookie compliance popup'
+  - 'use text format rich_text'
+  - 'view media'

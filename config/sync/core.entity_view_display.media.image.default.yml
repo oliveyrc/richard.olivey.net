@@ -1,0 +1,44 @@
+uuid: 2e06dc43-7adc-485e-995d-716bc8857596
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.image.field_image_to_be_cropped
+    - field.field.media.image.field_media_image
+    - image.style.image_croppy
+    - media.type.image
+  module:
+    - image
+    - media
+id: media.image.default
+targetEntityType: media
+bundle: image
+mode: default
+content:
+  field_image_to_be_cropped:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: image_croppy
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: image_croppy
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true

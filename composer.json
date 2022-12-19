@@ -106,6 +106,7 @@
         "drupal/addtoany": "*",
         "drupal/admin_audit_trail": "*",
         "drupal/admin_toolbar": "*",
+        "drupal/advagg": "^5.0",
         "drupal/anonymous_login": "^2.0",
         "drupal/audiofield": "^1.11",
         "drupal/backup_migrate": "^5.0",
@@ -155,6 +156,7 @@
         "drupal/metatag": "*",
         "drupal/override_node_options": "*",
         "drupal/paragraphs": "*",
+        "drupal/paragraphs_ee": "^2.0",
         "drupal/password_policy": "^3.1",
         "drupal/pathauto": "*",
         "drupal/rabbit_hole": "^1.0@beta",
@@ -175,6 +177,7 @@
         "drupal/view_unpublished": "*",
         "drupal/webform": "^6.0",
         "drupal/xmlsitemap": "*",
+        "drupal/yoast_seo": "^1.8",
         "drush/drush": "^11.4",
         "kint-php/kint": "^3.3",
         "oomphinc/composer-installers-extender": "*",
@@ -188,7 +191,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "8.0"
+            "php": "8.1"
         },
         "allow-plugins": {
             "drupal/core-composer-scaffold": true,

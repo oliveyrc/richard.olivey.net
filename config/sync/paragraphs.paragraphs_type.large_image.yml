@@ -1,0 +1,19 @@
+uuid: dabb3e5f-4a11-45bd-ad0a-22ec6d426708
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+  paragraphs_ee:
+    paragraphs_categories:
+      media: media
+id: large_image
+label: 'Large Image'
+icon_uuid: null
+icon_default: null
+description: 'Image which stretches across the whole content area'
+behavior_plugins: {  }

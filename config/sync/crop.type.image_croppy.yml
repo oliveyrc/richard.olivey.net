@@ -1,0 +1,12 @@
+uuid: cc0681ed-55a8-4ccb-a788-66929e8c2ef9
+langcode: en
+status: true
+dependencies: {  }
+label: 'Image croppy'
+id: image_croppy
+description: ''
+aspect_ratio: '16:9'
+soft_limit_width: null
+soft_limit_height: null
+hard_limit_width: null
+hard_limit_height: null

@@ -1,0 +1,28 @@
+uuid: 4fddcb8d-bdd6-4ae1-b765-90ae04203f8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_image_to_be_cropped
+    - media.type.image
+id: media.image.field_image_to_be_cropped
+field_name: field_image_to_be_cropped
+entity_type: media
+bundle: image
+label: 'Image to be cropped'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

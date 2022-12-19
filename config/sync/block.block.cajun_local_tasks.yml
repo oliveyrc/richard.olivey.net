@@ -1,0 +1,22 @@
+uuid: 0a277a85-045f-4d24-aac9-4836cdf94d99
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cajun
+_core:
+  default_config_hash: T0wbI6qVdThbbIqXDZFg_1VZ3_ittXBdEoUH7d7ux_E
+id: cajun_local_tasks
+theme: cajun
+region: content
+weight: -20
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

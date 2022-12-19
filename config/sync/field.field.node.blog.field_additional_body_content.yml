@@ -1,0 +1,41 @@
+uuid: afd295d1-68ab-488c-98ae-59b325bbc8c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_additional_body_content
+    - node.type.blog
+    - paragraphs.paragraphs_type.from_library
+    - paragraphs.paragraphs_type.large_image
+    - paragraphs.paragraphs_type.text
+  module:
+    - entity_reference_revisions
+id: node.blog.field_additional_body_content
+field_name: field_additional_body_content
+entity_type: node
+bundle: blog
+label: 'Additional body content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      from_library: from_library
+      text: text
+      large_image: large_image
+    negate: 0
+    target_bundles_drag_drop:
+      from_library:
+        weight: 2
+        enabled: true
+      large_image:
+        weight: 5
+        enabled: true
+      text:
+        weight: 4
+        enabled: true
+field_type: entity_reference_revisions

@@ -1,0 +1,18 @@
+uuid: cc61949a-bcb1-4028-ae74-9d4f1128616e
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.image_croppy
+  module:
+    - crop
+name: image_croppy
+label: 'Image croppy'
+effects:
+  2fad870c-c520-4210-95a8-7fd1ea8f6066:
+    uuid: 2fad870c-c520-4210-95a8-7fd1ea8f6066
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: image_croppy
+      automatic_crop_provider: null

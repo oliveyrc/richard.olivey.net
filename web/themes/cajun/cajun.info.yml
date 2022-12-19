@@ -1,0 +1,22 @@
+name: Cajun
+type: theme
+'base theme': stable9
+starterkit: true
+version: VERSION
+libraries:
+  - cajun/base
+  - cajun/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - cajun/user
+  core/drupal.dropbutton:
+    - cajun/dropbutton
+  core/drupal.dialog:
+    - cajun/dialog
+  file/drupal.file:
+    - cajun/file
+  core/drupal.progress:
+    - cajun/progress
+core_version_requirement: ^9
+generator: 'starterkit_theme:9.5.0'

@@ -1,0 +1,20 @@
+uuid: 58355c21-948b-4261-8e4b-ee32af46848a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cajun
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: cajun_local_actions
+theme: cajun
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

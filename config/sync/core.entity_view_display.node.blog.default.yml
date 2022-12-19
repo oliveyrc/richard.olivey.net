@@ -1,0 +1,61 @@
+uuid: 40311c8c-a5d3-48a5-a6a6-34895b0493b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.blog.body
+    - field.field.node.blog.field_additional_body_content
+    - field.field.node.blog.field_banner_image
+    - field.field.node.blog.field_banner_image_attribution
+    - field.field.node.blog.field_meta_tags
+    - field.field.node.blog.field_yoast_seo
+    - node.type.blog
+  module:
+    - entity_reference_revisions
+    - metatag
+    - text
+    - user
+    - yoast_seo
+id: node.blog.default
+targetEntityType: node
+bundle: blog
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_additional_body_content:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_meta_tags:
+    type: metatag_empty_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_yoast_seo:
+    type: yoastseo_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_banner_image: true
+  field_banner_image_attribution: true

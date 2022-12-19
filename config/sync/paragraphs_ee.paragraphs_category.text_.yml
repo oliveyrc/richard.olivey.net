@@ -1,0 +1,8 @@
+uuid: b7c3babe-fc79-4a69-898f-c5fa64e6fa02
+langcode: en
+status: true
+dependencies: {  }
+id: text_
+label: Text
+description: ''
+weight: -10
