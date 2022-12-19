@@ -1,0 +1,6 @@
+services:
+  mail_login.auth:
+    class: Drupal\mail_login\AuthDecorator
+    decorates: user.auth
+    public: false
+    arguments: ['@mail_login.auth.inner', '@entity_type.manager']

@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Installation file for Realname module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function realname_schema() {
+  $schema['realname'] = [
+    'description' => 'Computed Real Names to reduce overhead.',
+    'fields' => [
+      'uid' => [
+        'description' => 'User ID, links to User table.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'realname' => [
+        'description' => 'The generated real name of the user.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'created' => [
+        'description' => 'The UNIX timestamp of when the real name was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['uid'],
+    'indexes' => [
+      'realname' => ['realname'],
+    ],
+    'foreign keys' => [
+      'users' => [
+        'table' => 'users',
+        'columns' => ['uid' => 'uid'],
+      ],
+    ],
+  ];
+
+  return $schema;
+}

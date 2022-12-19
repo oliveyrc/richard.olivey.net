@@ -1,0 +1,10 @@
+site_settings.config:
+  type: config_object
+  label: 'Site Settings config'
+  mapping:
+    template_key:
+      type: string
+      label: 'The key at which site settings should be made available in templates'
+    disable_auto_loading:
+      type: boolean
+      label: 'Whether the default auto-loading of site settings into all templates should be disabled'

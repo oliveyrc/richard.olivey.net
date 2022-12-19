@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Contains site_settings.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function site_settings_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the site_settings module.
+    case 'help.page.site_settings':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a site settings entity') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function site_settings_theme() {
+  $theme = [];
+  $theme['site_setting_entity'] = [
+    'render element' => 'elements',
+    'file' => 'site_setting_entity.page.inc',
+    'template' => 'site_setting_entity',
+  ];
+  $theme['site_setting_entity_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'site_setting_entity.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function site_settings_theme_suggestions_site_setting_entity(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#site_setting_entity'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'site_setting_entity__' . $sanitized_view_mode;
+  $suggestions[] = 'site_setting_entity__' . $entity->bundle();
+  $suggestions[] = 'site_setting_entity__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'site_setting_entity__' . $entity->id();
+  $suggestions[] = 'site_setting_entity__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function site_settings_preprocess(&$variables) {
+
+  // Get template key. We give the admin control over this in case it conflicts
+  // with a particular module.
+  $config = \Drupal::config('site_settings.config');
+  $template_key = $config->get('template_key');
+  $disable_auto_loading = $config->get('disable_auto_loading');
+  if (!$disable_auto_loading) {
+    $template_key = $config->get('template_key');
+
+    // Load the site settings into the specified key.
+    $site_settings = \Drupal::service('site_settings.loader');
+    $variables[$template_key] = $site_settings->loadAll();
+  }
+}
+
+/**
+ * Process callback for the batch created in the replicate form.
+ */
+function _site_settings_replicate_process_batch($settings, &$context) {
+  $replicator = \Drupal::service('site_settings.replicator');
+  $replicator->processBatch($settings, $context);
+}
+
+/**
+ * Finish callback for the batch created in the replicate form.
+ */
+function _site_settings_replicate_finish_batch($success, $results, $operations) {
+  $replicator = \Drupal::service('site_settings.replicator');
+  $replicator->finishBatch($success, $results, $operations);
+}

@@ -1,0 +1,7 @@
+mail_login.admin:
+  path: '/admin/config/people/mail-login'
+  defaults:
+    _form: '\Drupal\mail_login\Form\MailLoginAdminSettingsForm'
+    _title: 'Mail Login'
+  requirements:
+    _permission: 'administer mail login'

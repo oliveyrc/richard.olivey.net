@@ -1,0 +1,5 @@
+video_embed_html5.config.form:
+  title: 'Video Embed HTML5'
+  parent: system.admin_config_media
+  description: 'Configure Video Embed HTML5.'
+  route_name: video_embed_html5.config.form

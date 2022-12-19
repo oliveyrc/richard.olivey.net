@@ -1,0 +1,23 @@
+# Site Setting menu items definition
+entity.site_setting_entity.collection:
+  title: 'Site Settings'
+  route_name: entity.site_setting_entity.collection
+  description: 'Manage the Site Settings.'
+  parent: system.admin_content
+  weight: 0
+
+# Site Setting type menu items definition
+entity.site_setting_entity_type.collection:
+  title: 'Manage Site Settings'
+  route_name: entity.site_setting_entity_type.collection
+  description: 'Manage the available Site Setting types'
+  parent: system.admin_structure
+  weight: 99
+
+# Site Settings configuration page menu items definition
+site_settings.site_settings_config_form:
+  title: 'Site Settings Configuration'
+  route_name: site_settings.site_settings_config_form
+  description: 'Configure how Site Settings behaves'
+  parent: system.admin_config_system
+  weight: 99

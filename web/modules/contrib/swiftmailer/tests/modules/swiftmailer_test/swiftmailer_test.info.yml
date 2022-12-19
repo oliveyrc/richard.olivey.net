@@ -1,0 +1,11 @@
+name: 'SwiftMailer Test Module'
+type: module
+description: 'Support module for SwiftMailer testing.'
+package: Testing
+# version: VERSION
+core_version_requirement: ^8 || ^9 || ^10
+
+# Information added by Drupal.org packaging script on 2022-12-17
+version: '8.x-2.3'
+project: 'swiftmailer'
+datestamp: 1671321229

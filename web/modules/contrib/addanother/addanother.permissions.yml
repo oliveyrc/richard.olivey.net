@@ -1,0 +1,6 @@
+'administer add another':
+  title: Administer Add another
+  description: Configure content types for Add another.
+'use add another':
+  title: Use Add another
+  description: Use the "Add another" link or button to create additional content.

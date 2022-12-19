@@ -1,0 +1,12 @@
+name: 'Revision Log Default'
+type: module
+description: 'Provides sensible defaults for revision logs, if none are given.'
+# version: VERSION
+core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
+package: Other
+
+# Information added by Drupal.org packaging script on 2022-08-01
+version: '8.x-1.3'
+project: 'revision_log_default'
+datestamp: 1659365338

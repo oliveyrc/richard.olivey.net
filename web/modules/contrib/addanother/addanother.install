@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for addanother module.
+ */
+
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_install().
+ */
+function addanother_install() {
+  _addanother_set_content_type_configs();
+}
+
+/**
+ * Update existing content with default values if has not  been already set.
+ */
+function addanother_update_8001() {
+  _addanother_set_content_type_configs(TRUE);
+}
+
+/**
+ * Set addanother options for existing content types.
+ */
+function _addanother_set_content_type_configs($check_existing = FALSE) {
+  $types = array_keys(NodeType::loadMultiple());
+  $configs = [
+    'button',
+    'message',
+    'tab',
+    'tab_edit',
+  ];
+  /* @var \Drupal\Core\Config\Config $config_factory  */
+  $config_factory = \Drupal::service('config.factory')
+    ->getEditable('addanother.settings');
+
+  foreach ($types as $type) {
+    foreach ($configs as $config) {
+      if ($check_existing &&
+        !is_null($config_factory->get("$config.$type"))) {
+        continue 2;
+      }
+      $config_factory->set("$config.$type", $config_factory->get("default_$config"));
+    }
+  }
+  $config_factory->save();
+}

@@ -1,0 +1,10 @@
+entity.site_setting_entity.edit_form:
+  route_name: entity.site_setting_entity.edit_form
+  group: site_settings
+  title: Edit
+
+entity.site_setting_entity.delete_form:
+  route_name: entity.site_setting_entity.delete_form
+  group: site_settings
+  title: Delete
+  weight: 10

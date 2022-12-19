@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: q5_oDA_7x4hkZzgl_74eF87gJiY_S7v-_jsU15P_a4w
+id: test_multiple_entries_and_fields
+label: 'Test multiple entries and fields'
+fieldset: Other
+multiple: true

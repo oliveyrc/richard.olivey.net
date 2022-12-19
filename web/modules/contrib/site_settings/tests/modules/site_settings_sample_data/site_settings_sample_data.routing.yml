@@ -1,0 +1,8 @@
+
+site_settings_sample_data.test_site_settings_loader_dump:
+  path: '/site_settings_sample_data/test_site_settings_loader'
+  defaults:
+    _controller: '\Drupal\site_settings_sample_data\Controller\TestSiteSettingsLoader::dump'
+    _title: 'dump'
+  requirements:
+    _access: 'TRUE'

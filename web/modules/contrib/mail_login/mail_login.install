@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the mail_login module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function mail_login_uninstall() {
+  // Deleting the configuration settings while uninstalling the module.
+  \Drupal::configFactory()->getEditable('mail_login.settings')->delete();
+}

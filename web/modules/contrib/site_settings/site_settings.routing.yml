@@ -1,0 +1,28 @@
+entity.site_setting_entity.collection:
+  path: '/admin/content/site-settings'
+  defaults:
+    _entity_list: 'site_setting_entity'
+    _title: 'Site settings'
+  requirements:
+    _permission: 'access site settings overview'
+
+site_settings.site_settings_config_form:
+  path: '/admin/config/site-settings/config'
+  defaults:
+    _form: '\Drupal\site_settings\Form\SiteSettingsConfigForm'
+    _title: 'SiteSettingsConfigForm'
+  requirements:
+    _permission: 'administer site setting entities'
+  options:
+    _admin_route: TRUE
+
+site_settings.site_setting_replicate_form:
+  path: '/admin/structure/site_setting_entity_type/{setting}/replicate'
+  defaults:
+    _form: '\Drupal\site_settings\Form\SiteSettingReplicateForm'
+    _title: 'SiteSettingReplicateForm'
+  requirements:
+    _permission: 'administer site setting entities'
+    setting: ^[a-zA-Z0-9_]+
+  options:
+    _admin_route: TRUE

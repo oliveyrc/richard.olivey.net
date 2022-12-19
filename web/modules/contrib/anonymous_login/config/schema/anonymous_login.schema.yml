@@ -1,0 +1,14 @@
+# Schema for the configuration files of the anonymous login module.
+anonymous_login.settings:
+  type: config_object
+  label: 'Anonymous login settings.'
+  mapping:
+    paths:
+      type: string
+      label: 'Anonymous login page paths.'
+    login_path:
+      type: string
+      label: 'Site login page path.'
+    message:
+      type: string
+      label: 'Anonymous login message.'

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 3gmGoqCew0NiHYoVmcDmkTqgfRNJSkWd_D4vaeTVLR8
+id: test_textarea
+label: 'Test textarea'
+fieldset: Other
+multiple: false

@@ -1,0 +1,5 @@
+addanother.admin_config:
+  title: 'Add another settings'
+  description: 'Default Add another settings for new content types. Add another can be configured on existing content types by editing the content type.'
+  route_name: addanother.admin_config
+  parent: 'system.admin_config_content'

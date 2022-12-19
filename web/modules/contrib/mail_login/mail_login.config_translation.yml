@@ -1,0 +1,5 @@
+mail_login.admin:
+  title: 'Mail Login'
+  base_route_name: mail_login.admin
+  names:
+    - mail_login.settings

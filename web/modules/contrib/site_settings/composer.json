@@ -1,0 +1,14 @@
+{
+  "name": "drupal/site_settings",
+  "type": "drupal-module",
+  "description": "Provides a site settings entity",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/site_settings",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/site_settings",
+    "source": "http://cgit.drupalcode.org/site_settings"
+  },
+  "require": { }
+}

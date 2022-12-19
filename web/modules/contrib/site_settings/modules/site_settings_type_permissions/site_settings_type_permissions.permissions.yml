@@ -1,0 +1,2 @@
+permission_callbacks:
+  - \Drupal\site_settings_type_permissions\SiteSettingTypePermissions::siteSettingTypePermissionsList

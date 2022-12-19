@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Sf4imchKC-2xiq0ffIi4ey8WhoSE9i9706I_8DeB2qA
+id: test_file
+label: 'Test file'
+fieldset: Images
+multiple: false

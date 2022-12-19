@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Add default configuration to Video Embed HTML5.
+ */
+function video_embed_html5_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('video_embed_html5.config');
+  $config->set('add_placeholder', TRUE);
+  $config->set('placeholder', NULL);
+  $config->save(TRUE);
+}

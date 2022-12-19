@@ -1,0 +1,21 @@
+{
+  "name": "drupal/addanother",
+  "description": "Presents users with an option to create another node of the same type after a node is added.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/addanother",
+  "authors": [
+    {
+      "name": "Neslee Canil Pinto",
+      "homepage": "https://www.drupal.org/u/neslee-canil-pinto",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/addanother",
+    "source": "https://git.drupalcode.org/project/addanother"
+  },
+  "require": {
+    "drupal/core": "^8 || ^9 || ^10"
+  }
+}

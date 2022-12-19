@@ -1,0 +1,15 @@
+name: Video Embed HTML5
+type: module
+description: Embed HTML5 videos into your website using Video Embed Field.
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Video Embed Field
+dependencies:
+  - video_embed_field:video_embed_field
+
+configure: video_embed_html5.config.form
+
+# Information added by Drupal.org packaging script on 2020-06-10
+version: '8.x-1.2'
+project: 'video_embed_html5'
+datestamp: 1591773548

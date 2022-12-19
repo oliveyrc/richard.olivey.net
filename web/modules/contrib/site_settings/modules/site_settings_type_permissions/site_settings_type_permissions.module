@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ * Contains site_settings_type_permissions.module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\site_settings\SiteSettingEntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function site_settings_type_permissions_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Help for the Site Settings type permissions module.
+    case 'help.page.site_settings_type_permissions':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Site Settings Type permission module allows administrators to configure permissions individually for each <em>Site Settings type</em>.') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dt>' . t('Configuring permissions per Site Settings type') . '</dt>';
+      $output .= '<dd>' . t('Administrators can configure the permissions to view, create, edit, and delete each <em>Site Settings type</em> individually on the <a href=":permissions">Permissions page</a>.', [':permissions' => Url::fromRoute('user.admin_permissions')->toString()]) . '</dd>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access() for entity type "site_setting_entity".
+ */
+function site_settings_type_permissions_site_setting_entity_access(SiteSettingEntityInterface $entity, $operation, AccountInterface $account) {
+  $permissions = &drupal_static(__FUNCTION__, []);
+
+  if (!in_array($operation, ['view', 'update', 'delete'], TRUE)) {
+    // If there was no type to check against, or the $op was not one of the
+    // supported ones, we return access denied.
+    return AccessResult::neutral();
+  }
+
+  // Set static cache id to use the type machine name.
+  $type = $entity->getType();
+
+  // Set static cache entity published state.
+  $published = $entity->isPublished() ? 1 : 0;
+
+  // If we've already checked access for this type, user and op, return from
+  // cache.
+  if ('view' === $operation) {
+    if (isset($permissions[$account->id()][$type][$operation][$published])) {
+      return $permissions[$account->id()][$type][$operation][$published];
+    }
+  }
+  elseif (isset($permissions[$account->id()][$type][$operation])) {
+    return $permissions[$account->id()][$type][$operation];
+  }
+
+  // If the current user has access to this type/operation, return access
+  // allowed, forbidden otherwise.
+  switch ($operation) {
+    case 'view':
+      if ($account->hasPermission('view unpublished site setting entities') || $account->hasPermission('view unpublished ' . $type . ' site setting entities')) {
+        $permissions[$account->id()][$type][$operation][0] = AccessResult::allowed()->cachePerPermissions();
+      }
+      else {
+        $permissions[$account->id()][$type][$operation][0] = AccessResult::forbidden()->cachePerPermissions();
+      }
+
+      if ($account->hasPermission('view published site setting entities') || $account->hasPermission('view published ' . $type . ' site setting entities')) {
+        $permissions[$account->id()][$type][$operation][1] = AccessResult::allowed()->cachePerPermissions();
+      }
+      else {
+        $permissions[$account->id()][$type][$operation][1] = AccessResult::forbidden()->cachePerPermissions();
+      }
+      break;
+
+    case 'update':
+      if ($account->hasPermission('edit site setting entities') || $account->hasPermission('edit ' . $type . ' site setting')) {
+        $permissions[$account->id()][$type][$operation] = AccessResult::allowed()->cachePerPermissions();
+      }
+      else {
+        $permissions[$account->id()][$type][$operation] = AccessResult::forbidden()->cachePerPermissions();
+      }
+      break;
+
+    case 'delete':
+      if ($account->hasPermission('delete site setting entities') || $account->hasPermission('delete ' . $type . ' site setting')) {
+        $permissions[$account->id()][$type][$operation] = AccessResult::allowed()->cachePerPermissions();
+      }
+      else {
+        $permissions[$account->id()][$type][$operation] = AccessResult::forbidden()->cachePerPermissions();
+      }
+      break;
+
+  }
+  if ('view' === $operation) {
+    return $permissions[$account->id()][$type][$operation][$published];
+  }
+
+  return $permissions[$account->id()][$type][$operation];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_create_access() for entity type "site_setting_entity".
+ */
+function site_settings_type_permissions_site_setting_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
+  $permissions = &drupal_static(__FUNCTION__, []);
+
+  $op = 'create';
+
+  // If we've already checked access for this type, user and op, return from
+  // cache.
+  if (isset($permissions[$account->id()][$entity_bundle][$op])) {
+    return $permissions[$account->id()][$entity_bundle][$op];
+  }
+
+  // If the current user has access to this type/op, return access allowed,
+  // forbidden otherwise.
+  $has_permissions = [
+    'add site setting entities',
+    $op . ' ' . $entity_bundle . ' site setting',
+  ];
+  $permissions[$account->id()][$entity_bundle][$op] = AccessResult::allowedIfHasPermissions($account, $has_permissions, 'OR');
+
+  return $permissions[$account->id()][$entity_bundle][$op];
+}

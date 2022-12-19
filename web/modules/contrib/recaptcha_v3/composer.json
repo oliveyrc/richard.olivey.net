@@ -1,0 +1,11 @@
+{
+  "name": "drupal/recaptcha_v3",
+  "description": "The reCaptcha V3 module provides integration with Google reCaptcha V3 and CAPTCHA module.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "require": {
+    "google/recaptcha": "^1.2",
+    "drupal/captcha": "^1.0.0-beta4"
+  }
+}

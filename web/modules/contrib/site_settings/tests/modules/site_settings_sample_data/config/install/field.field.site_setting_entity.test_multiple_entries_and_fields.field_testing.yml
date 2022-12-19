@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.site_setting_entity.field_testing
+    - site_settings.site_setting_entity_type.test_multiple_entries_and_fields
+_core:
+  default_config_hash: vQo0fiwRHuWgRNCw872b_oezVHOtsw4pZWtGyTKLJeU
+id: site_setting_entity.test_multiple_entries_and_fields.field_testing
+field_name: field_testing
+entity_type: site_setting_entity
+bundle: test_multiple_entries_and_fields
+label: Testing
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

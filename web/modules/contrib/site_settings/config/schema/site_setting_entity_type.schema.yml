@@ -1,0 +1,16 @@
+site_settings.site_setting_entity_type.*:
+  type: config_entity
+  label: 'Site Setting type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    fieldset:
+      type: string
+      label: 'Fieldset'
+    multiple:
+      type: boolean
+      label: 'Multiple'

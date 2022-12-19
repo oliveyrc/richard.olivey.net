@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.site_setting_entity.test_image.field_image
+    - image.style.thumbnail
+    - site_settings.site_setting_entity_type.test_image
+  module:
+    - image
+_core:
+  default_config_hash: iXysby3Jz93M7DVMXyyv3NxT-MjeiCW8XlE_F8gv_OA
+id: site_setting_entity.test_image.default
+targetEntityType: site_setting_entity
+bundle: test_image
+mode: default
+content:
+  field_image:
+    weight: 11
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  fieldset:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    region: content
+hidden: {  }

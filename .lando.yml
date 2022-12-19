@@ -1,0 +1,71 @@
+name: richard-olivey-net
+recipe: drupal9
+config:
+  composer_version: 2
+proxy:
+  appserver:
+    - richard-olivey-net.lndo.site
+services:
+  appserver:
+    build_internal: []
+    composer: {}
+    config: {}
+    ssl: true
+    type: 'php:8.1'
+    via: apache
+    xdebug: false
+    webroot: web
+  database:
+    config: {}
+    type: mariadb
+    portforward: 33306
+    creds:
+      user: drupal9
+      password: drupal9
+      database: drupal9
+tooling:
+  composer:
+    service: appserver
+    cmd: composer --ansi
+  db-import <file>:
+    service: ':host'
+    description: Imports a dump file into a database service
+    cmd: /helpers/sql-import.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      no-wipe:
+        description: Do not destroy the existing database before an import
+        boolean: true
+  'db-export [file]':
+    service: ':host'
+    description: Exports database from a database service to a file
+    cmd: /helpers/sql-export.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      stdout:
+        description: Dump database to stdout
+  php:
+    service: appserver
+    cmd: php
+  mysql:
+    service: ':host'
+    description: Drops into a MySQL shell on a database service
+    cmd: mysql -uroot
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+  drush:
+    service: appserver

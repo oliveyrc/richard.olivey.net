@@ -1,0 +1,12 @@
+name: Menu Force
+type: module
+description: "Makes sure a node gets added to the menu system on specific content types"
+package: Menu
+core_version_requirement: ^8.7.7 || ^9
+dependencies:
+  - drupal:menu_ui
+
+# Information added by Drupal.org packaging script on 2020-06-29
+version: '8.x-1.2'
+project: 'menu_force'
+datestamp: 1593463691

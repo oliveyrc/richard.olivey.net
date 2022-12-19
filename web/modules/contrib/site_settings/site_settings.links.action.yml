@@ -1,0 +1,9 @@
+entity.site_setting_entity.add_form:
+  route_name: 'site_setting_entity.add_page'
+  title: 'Add Site Setting'
+entity.site_setting_entity_type.add_form:
+  route_name: 'entity.site_setting_entity_type.add_form'
+  title: 'Add Site Setting type'
+  appears_on:
+    - entity.site_setting_entity_type.collection
+

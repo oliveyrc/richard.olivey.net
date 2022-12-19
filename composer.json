@@ -1,0 +1,259 @@
+{
+    "name": "drupal/recommended-project",
+    "description": "Project template for Drupal 9 projects with a relocated document root",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/drupal",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/mentions",
+                "version": "4.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/mentions/releases/mentions_4.14.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/autocomplete",
+                "version": "4.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/autocomplete/releases/autocomplete_4.14.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/textmatch",
+                "version": "4.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/textmatch/releases/textmatch_4.14.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/textwatcher",
+                "version": "4.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/textwatcher/releases/textwatcher_4.14.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/ajax",
+                "version": "4.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/ajax/releases/ajax_4.14.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/xml",
+                "version": "4.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/xml/releases/xml_4.14.1.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+    "scripts": {
+        "post-drupal-scaffold-cmd": [
+            "find ./web/modules/ -mindepth 1 -type d -name .git | xargs rm -rf",
+            "find ./vendor/ -mindepth 1 -type d -name .git | xargs rm -rf"
+        ]
+    },
+    "require": {
+        "ckeditor/ajax": "^4.14",
+        "ckeditor/autocomplete": "^4.14",
+        "ckeditor/mentions": "^4.14",
+        "ckeditor/textmatch": "^4.14",
+        "ckeditor/textwatcher": "^4.14",
+        "ckeditor/xml": "^4.14",
+        "composer/installers": "^1.9",
+        "cweagans/composer-patches": "~1.0",
+        "drupal/addanother": "*",
+        "drupal/address": "*",
+        "drupal/addtoany": "*",
+        "drupal/admin_audit_trail": "*",
+        "drupal/admin_toolbar": "*",
+        "drupal/anonymous_login": "^2.0",
+        "drupal/audiofield": "^1.11",
+        "drupal/backup_migrate": "^5.0",
+        "drupal/block_class": "*",
+        "drupal/captcha": "*",
+        "drupal/coffee": "^1.2",
+        "drupal/color_field": "*",
+        "drupal/config_split": "*",
+        "drupal/config_update": "*",
+        "drupal/core-composer-scaffold": "^9",
+        "drupal/core-project-message": "^9",
+        "drupal/core-recommended": "^9",
+        "drupal/crop": "*",
+        "drupal/ctools": "*",
+        "drupal/devel": "*",
+        "drupal/diff": "^1.0",
+        "drupal/eck": "^1.0@beta",
+        "drupal/editor_advanced_link": "*",
+        "drupal/entity": "^1.3",
+        "drupal/entity_reference_revisions": "*",
+        "drupal/entity_usage": "^2.0-beta3",
+        "drupal/entityqueue": "*",
+        "drupal/environment_indicator": "*",
+        "drupal/eu_cookie_compliance": "^1.19",
+        "drupal/eu_cookie_compliance_gtm": "^1.0@alpha",
+        "drupal/field_group": "^3.0",
+        "drupal/field_permissions": "^1.1",
+        "drupal/flood_control": "*",
+        "drupal/geofield_map": "^2.85",
+        "drupal/gin": "^3.0@beta",
+        "drupal/gin_login": "^1.2",
+        "drupal/google_analytics": "*",
+        "drupal/google_tag": "*",
+        "drupal/honeypot": "*",
+        "drupal/image_resize_filter": "*",
+        "drupal/image_widget_crop": "*",
+        "drupal/imce": "*",
+        "drupal/libraries": "^3.0@beta",
+        "drupal/link_attributes": "*",
+        "drupal/linkit": "*",
+        "drupal/login_destination": "^2.0@beta",
+        "drupal/mail_login": "^2.6",
+        "drupal/mailsystem": "^4.3",
+        "drupal/menu_block": "*",
+        "drupal/menu_breadcrumb": "*",
+        "drupal/menu_force": "^1.2",
+        "drupal/metatag": "*",
+        "drupal/override_node_options": "*",
+        "drupal/paragraphs": "*",
+        "drupal/password_policy": "^3.1",
+        "drupal/pathauto": "*",
+        "drupal/rabbit_hole": "^1.0@beta",
+        "drupal/realname": "^2.0@beta",
+        "drupal/recaptcha": "*",
+        "drupal/recaptcha_v3": "^1.6",
+        "drupal/redirect": "*",
+        "drupal/redirect_after_login": "^2.7",
+        "drupal/responsive_menu": "*",
+        "drupal/revision_log_default": "^1.2",
+        "drupal/site_settings": "^1.19",
+        "drupal/smart_trim": "*",
+        "drupal/stage_file_proxy": "*",
+        "drupal/swiftmailer": "*",
+        "drupal/token": "*",
+        "drupal/video_embed_field": "^2.4",
+        "drupal/video_embed_html5": "^1.2",
+        "drupal/view_unpublished": "*",
+        "drupal/webform": "^6.0",
+        "drupal/xmlsitemap": "*",
+        "drush/drush": "^11.4",
+        "kint-php/kint": "^3.3",
+        "oomphinc/composer-installers-extender": "*",
+        "wikimedia/composer-merge-plugin": "^2.0"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.0"
+        },
+        "allow-plugins": {
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true,
+            "wikimedia/composer-merge-plugin": true,
+            "cweagans/composer-patches": true
+        }
+    },
+    "extra": {
+        "patches": {
+            "drupal/environment_indicator": {
+                "getTitle() in Toolbar Handler returns null value, crashes site - Drupal.org issue #3324429 patch from comment #16": "https://www.drupal.org/files/issues/2022-12-08/3324429-16.patch"
+            }
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/web.config": false,
+                "[web-root]/README.txt": false,
+                "[web-root]/INSTALL.txt": false
+            }
+        },
+        "merge-plugin": {
+            "include": [
+                "web/modules/contrib/webform/composer.libraries.json"
+            ]
+        },
+        "installer-types": [
+            "custom-theme",
+            "custom-module"
+        ],
+        "installer-paths": {
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module",
+                "type:custom-module"
+            ],
+            "web/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme",
+                "type:custom-theme"
+            ]
+        }
+    }
+}

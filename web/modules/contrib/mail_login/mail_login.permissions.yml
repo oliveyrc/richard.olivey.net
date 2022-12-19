@@ -1,0 +1,4 @@
+administer mail login:
+  description: 'Configurations for Mail Login'
+  title: 'Administer Mail Login'
+  restrict access: TRUE

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.site_setting_entity.field_test_boolean_field
+    - site_settings.site_setting_entity_type.test_boolean
+id: site_setting_entity.test_boolean.field_test_boolean_field
+field_name: field_test_boolean_field
+entity_type: site_setting_entity
+bundle: test_boolean
+label: 'Test boolean field'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

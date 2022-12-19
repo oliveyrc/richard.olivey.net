@@ -1,0 +1,34 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function video_embed_html5_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.video_embed_html5':
+      $output = file_get_contents(drupal_get_path('module', 'video_embed_html5') . '/README.md');
+      return '<pre>' . $output . '</pre>';
+      break;
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function video_embed_html5_theme() {
+  return [
+    'video_embed_html5' => [
+      'variables' => [
+        'src' => NULL,
+        'type' => NULL,
+        'autoplay' => FALSE,
+        'width' => NULL,
+        'height' => NULL,
+      ],
+      'template' => 'video-embed-html5',
+    ],
+  ];
+}

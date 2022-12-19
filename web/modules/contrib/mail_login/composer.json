@@ -1,0 +1,21 @@
+{
+  "name": "drupal/mail_login",
+  "description": "This module enables users to login by email address.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "keywords": ["php", "user", "drupal"],
+  "homepage": "https://www.drupal.org/project/mail_login",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Mohammad AlQanneh",
+      "homepage": "https://www.drupal.org/u/mqanneh",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "http://drupal.org/project/issues/mail_login",
+    "source": "https://git.drupalcode.org/project/mail_login",
+    "email": "mqanneh@gmail.com"
+  }
+}

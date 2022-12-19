@@ -1,0 +1,43 @@
+recaptcha_v3.settings:
+  type: config_object
+  label: 'reCAPTCHA v3 settings'
+  mapping:
+    site_key:
+      type: string
+      label: 'The site key'
+    secret_key:
+      type: string
+      label: 'The secret key'
+    verify_hostname:
+      type: boolean
+      label: 'Checks the hostname'
+    default_challenge:
+      type: string
+      label: 'Default fallback challenge'
+    error_message:
+      type: string
+      label: 'Error message'
+      translatable: true
+    cacheable:
+      type: boolean
+      label: 'Make captcha cacheble'
+
+recaptcha_v3.recaptcha_v3_action.*:
+  type: config_entity
+  label: 'reCAPTCHA v3 action config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    threshold:
+      type: float
+      label: 'Threshold'
+    challenge:
+      type: string
+      label: 'Challenge'
+    uuid:
+      type: string
+      label: 'UUID'

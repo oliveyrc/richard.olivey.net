@@ -1,0 +1,41 @@
+# Schema for the configuration files of the addanother module.
+addanother.settings:
+  type: config_object
+  label: 'Node settings'
+  mapping:
+    default_button:
+      type: boolean
+      label: 'Default settings for displaying Add another button on node add form.'
+    default_message:
+      type: boolean
+      label: 'Default settings for displaying Add another message after node creation.'
+    default_tab:
+      type: boolean
+      label: 'Default settings for displaying Add another tab.'
+    default_tab_edit:
+      type: boolean
+      label: 'Default settings for displaying Add another tab on edit page.'
+    button:
+      type: sequence
+      label: 'Add another buttons'
+      sequence:
+        type: boolean
+        label: 'Add another button'
+    message:
+      type: sequence
+      label: 'Add another messages'
+      sequence:
+        type: boolean
+        label: 'Add another message'
+    tab:
+      type: sequence
+      label: 'Add another tabs'
+      sequence:
+        type: boolean
+        label: 'Add another tab'
+    tab_edit:
+      type: sequence
+      label: 'Add another edit tabs'
+      sequence:
+        type: boolean
+        label: 'Add another edit tab'

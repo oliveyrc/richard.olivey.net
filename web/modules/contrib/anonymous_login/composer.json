@@ -1,0 +1,11 @@
+{
+    "name": "drupal/anonymous_login",
+    "type": "drupal-module",
+    "description": "Specify pages that when visited by anonymous users will be forced to login.",
+    "license": "GPL-2.0-or-later",
+    "extra": {
+        "branch-alias": {
+            "dev-8.x-2.x": "2.x-dev"
+        }
+    }
+}

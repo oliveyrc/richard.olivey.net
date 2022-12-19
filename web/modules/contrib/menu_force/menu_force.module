@@ -1,0 +1,109 @@
+<?php
+/**
+ * @file
+ * Core functions for the Text Selection module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeTypeInterface;
+
+/**
+ * Implements hook_help().
+ */
+function menu_force_help($route_name) {
+  switch ($route_name) {
+    case 'help.page.menu_force':
+      $output = '<p>' . t('<strong>INTRODUCTION</strong>') . '</p>';
+      $output .= '<p>' . t('This module enables you to make Menu Settings required on specific content types.<br/><br/>It forces a node from one or more content types to be included in the menu system before the content will be saved successfully. This can be useful in a number of situations, e.g. when using [menupath-raw] in the pathauto settings, which expects a node to live in the menu system. This module makes sure it does.') . '</p>';
+      $output .= '<p>' . t('<strong>INSTALLATION</strong>') . '</p>';
+      $output .= '<p>' . t('<ul>
+                            <li>Enable the module </li>
+                            <li>Navigate to Administration -> Structure -> Content Types -> YOUR CONTENT TYPE</li>
+                            <li>You can force menu settings in the fieldset \'Menu settings\' </li>
+                            <li>When enabled, adding or editing nodes of this content type will be impossible without adding a menu entry.</li>
+                         ') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
+ *
+ * Make menu option mandatory based on configuration.
+ */
+function menu_force_form_node_form_alter(&$form, FormStateInterface $form_state) {
+
+  $node = $form_state->getFormObject()->getEntity();
+  $type = $node->type->entity;
+  if ($type->getThirdPartySetting('menu_force', 'menu_force', FALSE)) {
+    $form['menu']['#open'] = TRUE;
+    $form['menu']['enabled']['#default_value'] = TRUE;
+    $form['menu']['enabled']['#disabled'] = TRUE;
+    $form['menu']['link']['title']['#required'] = TRUE;
+    if ($type->getThirdPartySetting('menu_force', 'menu_force_parent', FALSE)) {
+      $form['menu']['link']['menu_parent']['#disabled'] = TRUE;
+    }
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for \Drupal\node\NodeTypeForm.
+ *
+ * Adds menu options to the node type form.
+ *
+ * @see NodeTypeForm::form()
+ */
+function menu_force_form_node_type_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\node\NodeTypeInterface $type */
+  $type = $form_state->getFormObject()->getEntity();
+
+  $form['menu']['menu_force'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Make the Menu Settings mandatory for this content type'),
+    '#description' => t('Enabling this will force the user to add the node to the menu system.'),
+    '#default_value' => $type->getThirdPartySetting('menu_force', 'menu_force', FALSE),
+  );
+
+  $form['menu']['menu_force_parent'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Lock the "Default parent item" as well'),
+    '#description' => t('Enabling this will lock the parent item choice, forcing created content to a chosen parent in the menu.'),
+    '#default_value' => $type->getThirdPartySetting('menu_force', 'menu_force_parent', FALSE),
+    '#states' => array(
+      'invisible' => array(
+       'input[name="menu_force"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+
+  $form['#validate'][] = 'menu_force_form_node_type_form_validate';
+  $form['#entity_builders'][] = 'menu_force_form_node_type_form_builder';
+}
+
+/**
+ * Submit handler for forms with menu options.
+ *
+ * @see menu_force_form_node_type_form_alter().
+ */
+function menu_force_form_node_type_form_validate(&$form, FormStateInterface $form_state) {
+  if ($form_state->getValue('menu_force_parent')) {
+
+    $menu_parent = $form_state->getValue('menu_parent');
+    list($menu, $menu_item) = explode(':', $menu_parent);
+
+    if ($menu && empty($menu_item)) {
+      $form_state->setErrorByName('menu_parent', t('If you want to force a Default parent menu item, please select which one.'));
+    }
+  }
+}
+
+/**
+ * Entity builder for the node type form with menu options.
+ *
+ * @see menu_force_form_node_type_form_alter()
+ */
+function menu_force_form_node_type_form_builder($entity_type, NodeTypeInterface $type, &$form, FormStateInterface $form_state) {
+  $type->setThirdPartySetting('menu_force', 'menu_force', $form_state->getValue('menu_force'));
+  $type->setThirdPartySetting('menu_force', 'menu_force_parent', $form_state->getValue('menu_force_parent'));
+}

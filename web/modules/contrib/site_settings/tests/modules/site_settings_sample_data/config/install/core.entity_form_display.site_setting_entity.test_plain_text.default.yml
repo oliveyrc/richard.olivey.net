@@ -1,0 +1,54 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.site_setting_entity.test_plain_text.field_testing
+    - site_settings.site_setting_entity_type.test_plain_text
+_core:
+  default_config_hash: Q4KTiFCMhiWz1567bZ5qPmtK3Ax2BZ0kqSAk_aYS-6A
+id: site_setting_entity.test_plain_text.default
+targetEntityType: site_setting_entity
+bundle: test_plain_text
+mode: default
+content:
+  field_testing:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  fieldset:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    region: content
+hidden: {  }

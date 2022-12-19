@@ -1,0 +1,13 @@
+{
+  "name": "drupal/video_embed_html5",
+  "description": "Embed HTML5 videos into your website using Video Embed Field.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/video_embed_html5",
+  "license": "GPL-2.0+",
+  "extra": {
+    "drupal": {
+      "package": " Video Embed Field",
+      "version": "8.x-1.x"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+name: 'EU Cookie Compliance GTM'
+type: module
+description: 'Integrate cookie compliance with Google Tag Manager.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'User interface'
+dependencies:
+  - eu_cookie_compliance
+  - google_tag
+
+# Information added by Drupal.org packaging script on 2021-02-18
+version: '8.x-1.0-alpha2'
+project: 'eu_cookie_compliance_gtm'
+datestamp: 1613639829

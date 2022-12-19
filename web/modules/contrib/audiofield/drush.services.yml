@@ -1,0 +1,9 @@
+services:
+  audiofield.commands:
+    class: \Drupal\audiofield\Commands\AudiofieldCommands
+    arguments:
+      - '@plugin.manager.audiofield'
+      - '@file_system'
+      - '@plugin.manager.archiver'
+    tags:
+      - { name: drush.command }

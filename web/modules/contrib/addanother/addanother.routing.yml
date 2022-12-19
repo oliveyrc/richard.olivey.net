@@ -1,0 +1,18 @@
+addanother.admin_config:
+  path: '/admin/config/content/addanother'
+  defaults:
+    _form: '\Drupal\addanother\Form\AddAnotherSettingsForm'
+    _title: 'Add another'
+    _description: 'Modify which node types display the Add another message.'
+  requirements:
+    _permission: 'administer add another'
+
+addanother.redirect:
+  path: '/node/{node}/addanother'
+  defaults:
+    _controller: '\Drupal\addanother\Controller\AddAnotherController::addAnotherGoTo'
+    _title: 'Add another redirect'
+  requirements:
+    _custom_access: '\Drupal\addanother\Controller\AddAnotherController::addAnotherAccess'
+  options:
+      _admin_route: TRUE

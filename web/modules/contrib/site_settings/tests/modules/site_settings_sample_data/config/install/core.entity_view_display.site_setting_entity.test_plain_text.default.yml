@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.site_setting_entity.test_plain_text.field_testing
+    - site_settings.site_setting_entity_type.test_plain_text
+  module:
+    - entity_test
+    - user
+third_party_settings:
+  entity_test:
+    foo: bar
+_core:
+  default_config_hash: 1O8q_4Xx4dsAcGQ8oXIZZdYNyqE9bV0LPcu24hiYc9M
+id: site_setting_entity.test_plain_text.default
+targetEntityType: site_setting_entity
+bundle: test_plain_text
+mode: default
+content:
+  field_testing:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  fieldset:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    region: content
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    region: content
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

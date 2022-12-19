@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Menu Force module.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_install().
+ */
+function menu_force_install() {
+  // Set the weight of the menu_force.module to 1
+  // so it is loaded after the menu_ui.module.
+  module_set_weight('menu_force', 1);
+
+  // Empty table.
+  $database = Database::getConnection();
+  if ($database->schema()->tableExists('cache_container')) {
+    $database->truncate('cache_container')->execute();
+  }
+}

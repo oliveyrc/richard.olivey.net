@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: E9KcM4svc4ntUzZc6Iv6bj8VQh5lxl5BdLoX3F3KqQM
+id: test_multiple_entries
+label: 'Test multiple entries'
+fieldset: Other
+multiple: true

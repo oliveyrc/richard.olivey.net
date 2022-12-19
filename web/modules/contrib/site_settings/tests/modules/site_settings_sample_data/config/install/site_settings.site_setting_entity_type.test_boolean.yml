@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: test_boolean
+label: 'Test boolean'
+fieldset: Boolean
+multiple: true

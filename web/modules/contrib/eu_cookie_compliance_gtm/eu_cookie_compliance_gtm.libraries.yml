@@ -1,0 +1,9 @@
+eu_cookie_compliance_gtm:
+  header: true
+  version: 1.0
+  js:
+    js/eu_cookie_compliance_hooks.js: {}
+  dependencies:
+    - eu_cookie_compliance/eu_cookie_compliance
+    - core/drupal
+    - core/drupalSettings

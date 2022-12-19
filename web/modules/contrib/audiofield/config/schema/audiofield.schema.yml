@@ -1,0 +1,79 @@
+field.formatter.settings.audiofield_audioplayer:
+  type: mapping
+  label: 'Audiofield audio player settings'
+  mapping:
+    audio_player:
+      type: string
+      label: 'Audio player'
+    audio_player_jplayer_theme:
+      type: string
+      label: 'jplayer theme'
+    audio_player_wavesurfer_combine_files:
+      type: boolean
+      label: 'Combine files into single player'
+    audio_player_wavesurfer_audiorate:
+      type: integer
+      label: 'Audio rate'
+    audio_player_wavesurfer_autocenter:
+      type: boolean
+      label: 'Auto Center'
+    audio_player_wavesurfer_bargap:
+      type: integer
+      label: 'Bar gap'
+    audio_player_wavesurfer_barheight:
+      type: integer
+      label: 'Bar height'
+    audio_player_wavesurfer_barwidth:
+      type: integer
+      label: 'Bar width'
+    audio_player_wavesurfer_cursorcolor:
+      type: string
+      label: 'Cursor color'
+    audio_player_wavesurfer_cursorwidth:
+      type: integer
+      label: 'Cursor width'
+    audio_player_wavesurfer_forcedecode:
+      type: boolean
+      label: 'Force decode'
+    audio_player_wavesurfer_normalize:
+      type: boolean
+      label: 'Normalize'
+    audio_player_wavesurfer_playnexttrack:
+      type: boolean
+      label: 'Autoplay Next Track'
+    audio_player_wavesurfer_progresscolor:
+      type: string
+      label: 'Progress color'
+    audio_player_wavesurfer_responsive:
+      type: boolean
+      label: 'Responsive'
+    audio_player_wavesurfer_use_peakfile:
+      type: boolean
+      label: 'Use peakfile'
+    audio_player_wavesurfer_wavecolor:
+      type: string
+      label: 'Wave color'
+    audio_player_wordpress_combine_files:
+      type: boolean
+      label: 'Combine files into single player'
+    audio_player_wordpress_animation:
+      type: boolean
+      label: 'Animation'
+    audio_player_soundmanager_theme:
+      type: string
+      label: 'Soundmanager theme'
+    audio_player_initial_volume:
+      type: integer
+      label: 'Initial volume'
+    audio_player_autoplay:
+      type: boolean
+      label: 'Autoplay'
+    audio_player_lazyload:
+      type: boolean
+      label: 'Lazy load audio'
+    download_button:
+      type: boolean
+      label: 'Show download button'
+    download_link:
+      type: boolean
+      label: 'Show download link'

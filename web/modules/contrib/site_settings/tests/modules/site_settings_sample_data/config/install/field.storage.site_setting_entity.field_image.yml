@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - site_settings
+_core:
+  default_config_hash: 1EIg-U_QpDoC2XWwTfy4btd620eBg-OeVkHif-Itjao
+id: site_setting_entity.field_image
+field_name: field_image
+entity_type: site_setting_entity
+type: image
+settings:
+  uri_scheme: public
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  target_type: file
+  display_field: false
+  display_default: false
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

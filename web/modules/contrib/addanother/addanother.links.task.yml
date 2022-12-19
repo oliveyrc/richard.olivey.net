@@ -1,0 +1,10 @@
+addanother.redirect:
+  route_name: addanother.redirect
+  base_route: entity.node.canonical
+  title: Add another
+  weight: 20
+addanother.admin_config:
+  title: 'Settings'
+  route_name: addanother.admin_config
+  base_route: addanother.admin_config
+  weight: 0

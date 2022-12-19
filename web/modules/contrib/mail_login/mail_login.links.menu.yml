@@ -1,0 +1,5 @@
+mail_login.admin:
+  title: 'Mail Login'
+  description: 'Configure mail login options.'
+  parent: user.admin_index
+  route_name: mail_login.admin

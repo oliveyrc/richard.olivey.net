@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * @file
+ * Creates contents for test data.
+ */
+
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\site_settings\Entity\SiteSettingEntity;
+
+/**
+ * Implements hook_install().
+ */
+function site_settings_sample_data_install() {
+
+  // Create plain text test.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_plain_text',
+    'name' => 'Test plain text name',
+    'fieldset' => 'Other',
+    'field_testing' => [
+      'value' => 'Test plain text value',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create textarea test.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_textarea',
+    'name' => 'Test textarea name',
+    'fieldset' => 'Other',
+    'field_test_textarea' => [
+      'value' => 'Test textarea value',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create multiple entries test 1.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_multiple_entries',
+    'name' => 'Test multiple entries name 1',
+    'fieldset' => 'Other',
+    'field_testing' => [
+      'value' => 'Test multiple entries content 1',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create multiple entries test 2.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_multiple_entries',
+    'name' => 'Test multiple entries name 2',
+    'fieldset' => 'Other',
+    'field_testing' => [
+      'value' => 'Test multiple entries content 2',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create multiple entries and multiple fields test 1.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_multiple_entries_and_fields',
+    'name' => 'Test multiple entries and fields name 1',
+    'fieldset' => 'Other',
+    'field_testing' => [
+      'value' => 'Test multiple entries and fields content 1 field 1',
+    ],
+    'field_test_textarea' => [
+      'value' => 'Test multiple entries and fields content 1 field 2',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create multiple entries and multiple fields test 2.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_multiple_entries_and_fields',
+    'name' => 'Test multiple entries and fields name 2',
+    'fieldset' => 'Other',
+    'field_testing' => [
+      'value' => 'Test multiple entries and fields content 2 field 1',
+    ],
+    'field_test_textarea' => [
+      'value' => 'Test multiple entries and fields content 2 field 2',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create multiple fields test.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_multiple_fields',
+    'name' => 'Test multiple fields name',
+    'fieldset' => 'Other',
+    'field_testing' => [
+      'value' => 'Test multiple fields field 1',
+    ],
+    'field_test_textarea' => [
+      'value' => 'Test multiple fields field 2',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create image file.
+  global $base_url;
+  $data = file_get_contents($base_url . '/core/misc/druplicon.png');
+  /** @var \Drupal\file\FileRepositoryInterface $file_repository */
+  $file_repository = \Drupal::service('file.repository');
+  $file = $file_repository->writeData($data, 'public://druplicon.png', FileSystemInterface::EXISTS_REPLACE);
+
+  // Create image test.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_image',
+    'name' => 'Test image',
+    'fieldset' => 'Images',
+    'field_image' => [
+      'target_id' => $file->id(),
+      'alt' => 'Test image alt',
+      'title' => 'Test image title',
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create images test.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_images',
+    'name' => 'Test images 1',
+    'fieldset' => 'Images',
+    'field_images' => [
+      [
+        'target_id' => $file->id(),
+        'alt' => 'Test image alt 1',
+        'title' => 'Test image title 1',
+      ],
+      [
+        'target_id' => $file->id(),
+        'alt' => 'Test image alt 2',
+        'title' => 'Test image title 2',
+      ],
+    ],
+  ]);
+  $site_setting->save();
+
+  // Create txt file.
+  global $base_url;
+  $data = file_get_contents($base_url . '/README.md');
+  /** @var \Drupal\file\FileRepositoryInterface $file_repository */
+  $file_repository = \Drupal::service('file.repository');
+  $file = $file_repository->writeData($data, 'public://README.md', FileSystemInterface::EXISTS_REPLACE);
+
+  // Create file test.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_file',
+    'name' => 'Test file',
+    'fieldset' => 'Images',
+    'field_file' => [
+      'target_id' => $file->id(),
+    ],
+  ]);
+  $site_setting->save();
+
+  // Multiple boolean fields.
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_boolean',
+    'name' => 'Test boolean 1',
+    'fieldset' => 'Boolean',
+    'field_test_boolean_field' => [
+      'value' => '1',
+    ],
+  ]);
+  $site_setting->save();
+  $site_setting = SiteSettingEntity::create([
+    'type' => 'test_boolean',
+    'name' => 'Test boolean 2',
+    'fieldset' => 'Boolean',
+    'field_test_boolean_field' => [
+      'value' => '0',
+    ],
+  ]);
+  $site_setting->save();
+
+}

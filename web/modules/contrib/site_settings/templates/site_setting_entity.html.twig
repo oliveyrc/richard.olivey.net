@@ -1,0 +1,22 @@
+{#
+/**
+ * @file site_setting_entity.html.twig
+ * Default theme implementation to present Site Setting data.
+ *
+ * This template is used when viewing Site Setting pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_site_setting_entity()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('site_setting_entity') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

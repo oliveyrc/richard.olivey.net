@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: nO50KzCVU2-MPF6O4rOeSnyghJ5-c2PG7-toXLTOyoQ
+id: test_plain_text
+label: 'Test plain text'
+fieldset: Other
+multiple: false

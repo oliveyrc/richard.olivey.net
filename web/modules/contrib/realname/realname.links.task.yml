@@ -1,0 +1,4 @@
+realname.admin_settings_form_tab:
+  route_name: realname.admin_settings_form
+  title: 'Real name'
+  base_route: entity.user.admin_form

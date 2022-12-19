@@ -1,0 +1,184 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update hooks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function site_settings_install() {
+
+  // On initial install set template_key and disable_auto_loading
+  // for site_settings.
+  $config = \Drupal::configFactory()->getEditable('site_settings.config');
+  $config->set('template_key', 'site_settings');
+  $config->set('disable_auto_loading', FALSE);
+  $config->save();
+
+}
+
+/**
+ * Warn if 'settings' is used as a key and display suite is enabled.
+ */
+function site_settings_requirements($phase) {
+  $requirements = [];
+  if (in_array($phase, ['runtime', 'update'])) {
+
+    // Get template key. We give the admin control over this in case it
+    // conflicts with a particular module.
+    $config = \Drupal::config('site_settings.config');
+    $template_key = $config->get('template_key');
+
+    // If we are using settings as the template key.
+    if ($template_key == 'settings') {
+
+      // If Display Suite is enabled.
+      if (\Drupal::moduleHandler()->moduleExists('ds')) {
+        $requirements['site_settings'] = [
+          'title' => t('Site settings'),
+          'value' => t('Your site uses Display Suite and your template key for Site Settings is "settings". This is likely to conflict with Display Suite\'s use of "settings". Please visit "/admin/config/site-settings/config".'),
+          'severity' => REQUIREMENT_WARNING,
+        ];
+      }
+    }
+  }
+  return $requirements;
+}
+
+/**
+ * Set the default template key if upgrading.
+ */
+function site_settings_update_8001() {
+
+  // On initial install set template_key to site_settings.
+  $config = \Drupal::configFactory()->getEditable('site_settings.config');
+  $template_key = $config->get('template_key');
+  if (!$template_key) {
+
+    // If we don't have a template key, we are updating, maintain existing
+    // template key of 'settings' to avoid breaking update path. New installs
+    // will have template_key set in hook_install.
+    $config->set('template_key', 'settings');
+    $config->save();
+  }
+}
+
+/**
+ * Clear the old cache as we now have separate caches for multilingual.
+ */
+function site_settings_update_8002() {
+  \Drupal::cache()->delete('site_settings:settings');
+}
+
+/**
+ * Delete orphaned site settings.
+ *
+ * There may be orphaned site settings where the site setting entity type was
+ * deleted but the site settings of that entity type were left behind. Clean
+ * those up.
+ */
+function site_settings_update_8003() {
+  // If this update hasn't run, ensure update 8004 runs before this.
+  site_settings_update_8004();
+
+  // Get all existing site setting types.
+  $query = \Drupal::entityQuery('site_setting_entity_type');
+  $query->accessCheck(TRUE);
+  if ($entity_type_ids = $query->execute()) {
+
+    // Find any site settings that don't belong to an existing type.
+    $query = \Drupal::entityQuery('site_setting_entity');
+    $query->accessCheck(TRUE);
+    $query->condition('type', $entity_type_ids, 'NOT IN');
+    if ($entity_ids = $query->execute()) {
+
+      // Delete the orphaned site settings.
+      $controller = \Drupal::entityTypeManager()->getStorage('site_setting_entity');
+      $entities = $controller->loadMultiple($entity_ids);
+      $controller->delete($entities);
+    }
+  }
+}
+
+/**
+ * Create the entity data_table and migrate existing entities.
+ */
+function site_settings_update_8004() {
+  $data_table_exists = \Drupal::database()->schema()->tableExists('site_setting_entity_field_data');
+  if (!$data_table_exists) {
+    // Create the missing data table.
+    $entity_type_id = 'site_setting_entity';
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $entity_type_manager->clearCachedDefinitions();
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    $entity_update_manager = \Drupal::entityDefinitionUpdateManager();
+    $entity_update_manager->installEntityType($entity_type);
+
+    // Copy the relevant values from base table to data table.
+    $query = \Drupal::database()->select('site_setting_entity', 'sse');
+    $query->fields('sse');
+    $sse_items = $query->execute()->fetchAll();
+    foreach ($sse_items as $item) {
+      $insert_values = [
+        'id' => $item->id,
+        'type' => $item->type,
+        'langcode' => $item->langcode,
+        'user_id' => $item->user_id,
+        'name' => $item->name,
+        'fieldset' => $item->fieldset,
+        'status' => $item->status,
+        'created' => $item->created,
+        'changed' => $item->changed,
+        'default_langcode' => '1',
+      ];
+
+      \Drupal::database()->insert('site_setting_entity_field_data')
+        ->fields($insert_values)
+        ->execute();
+    }
+
+    // Remove base table fields that are no longer needed.
+    $schema = \Drupal::database()->schema();
+    $drop_fields = ['name', 'fieldset', 'status', 'created', 'changed'];
+    foreach ($drop_fields as $drop_field) {
+      $schema->dropField('site_setting_entity', $drop_field);
+    }
+  }
+}
+
+/**
+ * Apply entity updates.
+ */
+function site_settings_update_8005() {
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type = $definition_update_manager->getEntityType('site_setting_entity');
+  $definition_update_manager->updateEntityType($entity_type);
+}
+
+/**
+ * Remove the user_id field from the site_setting_entity table, as it now lives
+ * in the site_setting_entity_field_data one.
+ */
+function site_settings_update_8006() {
+  $schema = \Drupal::database()->schema();
+
+  if ($schema->fieldExists('site_setting_entity', 'user_id')) {
+    $schema->dropField('site_setting_entity', 'user_id');
+  }
+}
+
+/**
+ * Set the default auto-loading if upgrading.
+ */
+function site_settings_update_8007() {
+
+  // On initial install set disable_auto_loading for site_settings.
+  $config = \Drupal::configFactory()->getEditable('site_settings.config');
+  $disable_auto_loading = $config->get('disable_auto_loading');
+  if (!$disable_auto_loading) {
+    $config->set('disable_auto_loading', FALSE);
+    $config->save();
+  }
+}

@@ -1,0 +1,5 @@
+realname.admin_settings_form:
+  title: 'Real name'
+  parent: user.admin_index
+  description: 'Use tokens to configure how user names are displayed.'
+  route_name: realname.admin_settings_form

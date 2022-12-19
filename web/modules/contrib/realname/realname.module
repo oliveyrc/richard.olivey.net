@@ -1,0 +1,293 @@
+<?php
+
+/**
+ * @file
+ * Provides token-based name displays for users.
+ *
+ * @todo Add a 'view realname' permission enabled by default
+ * @todo Allow users to login with their real name
+ * @todo Disable the username field
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
+use Drupal\user\Entity\User;
+
+/**
+ * @defgroup realname Real name API
+ */
+
+/**
+ * Implements hook_help().
+ */
+function realname_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the Realname module.
+    case 'realname.admin_settings_form':
+    case 'help.page.realname':
+      return '<p>' . t("A Real Name is what the site developer decides that users' names should look like. It is constructed from various tokens that are available within the site.") . '</p>';
+  }
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function realname_entity_extra_field_info() {
+  $fields['user']['user']['display']['realname'] = [
+    'label' => t('Real name'),
+    'description' => t('Real name'),
+    'weight' => -1,
+    'visible' => FALSE,
+  ];
+
+  return $fields;
+}
+
+/**
+ * Implements hook_user_format_name_alter().
+ */
+function realname_user_format_name_alter(&$name, AccountInterface $account) {
+  static $in_username_alter = FALSE;
+  $uid = $account->id();
+
+  // Don't alter anonymous users or objects that do not have any user ID.
+  if (empty($uid)) {
+    return;
+  }
+
+  // Real name was loaded/generated via hook_user_load(), so re-use it.
+  if (isset($account->realname)) {
+    if (mb_strlen($account->realname)) {
+      // Only if the real name is a non-empty string is $name actually altered.
+      $name = $account->realname;
+    }
+    return;
+  }
+
+  // Real name was not yet available for the account so we need to generate it.
+  // Because tokens may call format_username() we need to prevent recursion.
+  if (!$in_username_alter) {
+    $in_username_alter = TRUE;
+
+    // If $account->realname was undefined, then the user account object was
+    // not properly loaded. We must enforce calling user_load().
+    if ($realname_account = User::load($uid)) {
+      realname_user_format_name_alter($name, $realname_account);
+    }
+
+    $in_username_alter = FALSE;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_load().
+ */
+function realname_user_load(array $accounts) {
+  $realnames = realname_load_multiple($accounts);
+  foreach ($realnames as $uid => $realname) {
+    $accounts[$uid]->realname = $realname;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function realname_user_update(EntityInterface $account) {
+  // Since user data may have changed, update the realname and its cache.
+  $realnames = &drupal_static('realname_load_multiple', []);
+  $realnames[$account->id()] = realname_update($account);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function realname_user_delete(EntityInterface $account) {
+  realname_delete($account->id());
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for user entities.
+ */
+function realname_user_view(array &$build, EntityInterface $account, EntityViewDisplayInterface $display, $view_mode) {
+  if ($display->getComponent('realname')) {
+    if ($account->access('view')) {
+      $url = Url::fromRoute('entity.user.canonical', ['user' => $account->id()]);
+      $markup = Link::fromTextAndUrl($account->realname, $url)->toString();
+    }
+    else {
+      $markup = Html::escape($account->realname);
+    }
+
+    $build['realname'] = [
+      '#theme' => 'field',
+      '#title' => t('Real name'),
+      '#label_display' => 'inline',
+      '#view_mode' => '_custom',
+      '#field_name' => 'realname',
+      '#field_type' => 'text',
+      '#field_translatable' => FALSE,
+      '#entity_type' => 'custom',
+      '#bundle' => 'custom',
+      '#object' => $account,
+      '#items' => [TRUE],
+      '#is_multiple' => FALSE,
+      0 => [
+        '#markup' => $markup,
+      ],
+    ];
+  }
+}
+
+/**
+ * @addtogroup realname
+ * @{
+ */
+
+/**
+ * Loads a real name.
+ *
+ * @param Drupal\user\Entity\User $account
+ *   A user account object.
+ *
+ * @return mixed
+ *   The user's generated real name.
+ */
+function realname_load(User $account) {
+  $realnames = realname_load_multiple([$account->id() => $account]);
+  return reset($realnames);
+}
+
+/**
+ * Loads multiple real names.
+ *
+ * @param array $accounts
+ *   An array of user account objects keyed by user ID.
+ *
+ * @return array
+ *   An array of real names keyed by user ID.
+ */
+function realname_load_multiple(array $accounts) {
+  $realnames = &drupal_static(__FUNCTION__, []);
+
+  if ($new_accounts = array_diff_key($accounts, $realnames)) {
+    // Attempt to fetch realnames from the database first.
+    $realnames += \Drupal::database()->query("SELECT uid, realname FROM {realname} WHERE uid IN (:uids[])", [':uids[]' => array_keys($new_accounts)])->fetchAllKeyed();
+
+    // For each account that was not present in the database, generate its
+    // real name.
+    foreach ($new_accounts as $uid => $account) {
+      if (!isset($realnames[$uid])) {
+        $realnames[$uid] = realname_update($account);
+      }
+    }
+  }
+
+  return array_intersect_key($realnames, $accounts);
+}
+
+/**
+ * Update the realname for a user account.
+ *
+ * @param Drupal\user\Entity\User $account
+ *   A user account object.
+ *
+ * @return string
+ *   A string with the real name.
+ *
+ * @see hook_realname_pattern_alter()
+ * @see hook_realname_alter()
+ * @see hook_realname_update()
+ */
+function realname_update(User $account) {
+  $realname = '';
+
+  if (!$account->isAnonymous()) {
+    // Get the default pattern and allow other modules to alter it.
+    $config = \Drupal::config('realname.settings');
+    $pattern = $config->get('pattern');
+    \Drupal::moduleHandler()->alter('realname_pattern', $pattern, $account);
+
+    // Perform token replacement on the real name pattern.
+    $realname = \Drupal::token()->replace($pattern,
+        ['user' => $account],
+        ['clear' => TRUE, 'sanitize' => FALSE]
+    );
+
+    // Remove any HTML tags.
+    $realname = strip_tags(Html::decodeEntities($realname));
+
+    // Remove double spaces (if a token had no value).
+    $realname = preg_replace('/ {2,}/', ' ', $realname);
+
+    // Allow other modules to alter the generated realname.
+    \Drupal::moduleHandler()->alter('realname', $realname, $account);
+
+    // The name must be trimmed to 255 characters before inserting into the
+    // database.
+    $realname = Unicode::truncate(trim($realname), 255);
+  }
+  else {
+    // DisplayName cannot generated with tokens for anonymous users.
+    $realname = $account->label();
+  }
+
+  // Save to the database and the static cache.
+  \Drupal::database()->merge('realname')
+    ->key(['uid' => $account->id()])
+    ->fields([
+      'realname' => $realname,
+      'created' => \Drupal::time()->getRequestTime(),
+    ])
+    ->execute();
+
+  // Allow modules to react to the realname being updated.
+  \Drupal::moduleHandler()->invokeAll('realname_update', [$realname, $account]);
+
+  // Clear the entity cache.
+  /** @var \Drupal\user\UserStorageInterface $user_storage */
+  $user_storage = \Drupal::entityTypeManager()->getStorage('user');
+  $user_storage->resetCache([$account->id()]);
+
+  return $realname;
+}
+
+/**
+ * Delete a real name.
+ *
+ * @param int $uid
+ *   A user ID.
+ */
+function realname_delete($uid) {
+  realname_delete_multiple([$uid]);
+}
+
+/**
+ * Delete multiple real names.
+ *
+ * @param array $uids
+ *   An array of user IDs.
+ */
+function realname_delete_multiple(array $uids) {
+  \Drupal::database()->delete('realname')->condition('uid', $uids, 'IN')->execute();
+  drupal_static_reset('realname_load_multiple');
+  \Drupal::entityTypeManager()->getStorage('user')->resetCache($uids);
+}
+
+/**
+ * Delete all real names.
+ */
+function realname_delete_all() {
+  \Drupal::database()->truncate('realname')->execute();
+  drupal_static_reset('realname_load_multiple');
+  \Drupal::entityTypeManager()->getStorage('user')->resetCache();
+}
+
+/**
+ * @} End of "addtogroup realname".
+ */

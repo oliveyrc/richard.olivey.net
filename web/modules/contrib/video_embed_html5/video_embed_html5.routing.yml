@@ -1,0 +1,7 @@
+video_embed_html5.config.form:
+  path: '/admin/config/media/video-embed-html5'
+  defaults:
+    _form: '\Drupal\video_embed_html5\Form\VideoEmbedHtml5ConfigForm'
+    _title: 'Video Embed HTML5 config'
+  requirements:
+    _permission: 'administer video_embed_html5'
