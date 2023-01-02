@@ -5,6 +5,7 @@ config:
 proxy:
   appserver:
     - richard-olivey-net.lndo.site
+    - bs.richard-olivey-net.lndo.site
 services:
   appserver:
     build_internal: []
