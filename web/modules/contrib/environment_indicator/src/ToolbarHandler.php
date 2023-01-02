@@ -177,7 +177,6 @@ class ToolbarHandler implements ContainerInjectionInterface {
               'fgColor' => $this->activeEnvironment->get('fg_color'),
               'bgColor' => $this->activeEnvironment->get('bg_color'),
               'addFavicon' => $this->config->get('favicon'),
-              'alterToolbar' => true,
             ],
           ],
         ]

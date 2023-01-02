@@ -5,7 +5,7 @@ package: Media
 core_version_requirement: ^9.3 || ^10
 configure: imce.admin
 
-# Information added by Drupal.org packaging script on 2022-12-16
-version: '3.0.5'
+# Information added by Drupal.org packaging script on 2022-12-28
+version: '3.0.6'
 project: 'imce'
-datestamp: 1671214998
+datestamp: 1672264655

@@ -8,6 +8,8 @@ use Drupal\Tests\field\Traits\EntityReferenceTestTrait;
 
 /**
  * Test Load with References.
+ *
+ * @group devel
  */
 class DevelEntityToArrayTest extends EntityKernelTestBase {
 

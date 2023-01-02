@@ -462,6 +462,10 @@ class ImceFM {
       'date' => @filemtime($uri) ?: 0,
       'size' => @filesize($uri) ?: 0,
     ];
+    // Some file systems need url altering for each file.
+    if (!empty($this->conf['url_alter'])) {
+      $properties['url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+    }
     // Get image properties.
     $regexp = isset($this->conf['image_extensions_regexp']) ? $this->conf['image_extensions_regexp'] : $this->imageExtensionsRegexp();
     if ($regexp && preg_match($regexp, $uri) && $info = getimagesize($uri)) {
@@ -719,6 +723,7 @@ class ImceFM {
       if ($request->request->has('jsop')) {
         $this->run();
         $data = $this->getResponse();
+        \Drupal::service('plugin.manager.imce.plugin')->alterJsResponse($data, $this);
         // Return html response if the flag is set.
         if ($request->request->get('return_html')) {
           return new Response('<html><body><textarea>' . Json::encode($data) . '</textarea></body></html>');

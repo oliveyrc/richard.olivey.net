@@ -19,7 +19,7 @@ class BlockClassTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['block', 'block_class'];
+  protected static $modules = ['block', 'block_class'];
 
   /**
    * {@inheritdoc}

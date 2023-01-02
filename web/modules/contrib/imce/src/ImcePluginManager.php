@@ -159,6 +159,13 @@ class ImcePluginManager extends DefaultPluginManager {
   }
 
   /**
+   * Alters js response.
+   */
+  public function alterJsResponse(array &$data, ImceFM $fm) {
+    return $this->invokeAll('alterJsResponse', $data, $fm);
+  }
+
+  /**
    * Runs an operation handler for the file manager.
    */
   public function handleOperation($op, ImceFM $fm) {

@@ -603,7 +603,7 @@ class BlockClassHelperService {
       $maxlength_block_class_field = $config->get('maxlength_block_class_field');
     }
 
-    $image_path = '/' . drupal_get_path('module', 'block_class') . '/images/';
+    $image_path = '/' . \Drupal::service('extension.list.module')->getPath('block_class') . '/images/';
 
     if ($config->get('field_type') == 'textfield') {
 

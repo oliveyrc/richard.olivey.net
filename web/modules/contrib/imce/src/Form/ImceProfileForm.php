@@ -211,6 +211,12 @@ class ImceProfileForm extends EntityForm {
       '#default_value' => $imce_profile->getConf('ignore_usage'),
       '#description' => $this->t('IMCE avoids deletion or overwriting of files that are in use by other Drupal modules. Enabling this option skips the file usage check. Not recommended!'),
     ];
+    $conf['advanced']['url_alter'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable URL altering'),
+      '#default_value' => $imce_profile->getConf('url_alter'),
+      '#description' => $this->t('IMCE builds file URLs on js side by combining the root URL and file paths. This might result in incorrect URLs for some file systems like s3. This option should fix the URLs at the cost of some performance degredation.'),
+    ];
 
     // Folders.
     $conf['folders'] = [
